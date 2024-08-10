@@ -1,1 +1,9 @@
-PARTICIPANTS: use this file for creating the remove book from catalog diagram in mastery task 01
+@startuml
+user -> CatalogDao: removeBookFromCatalogRequest()
+
+CatalogDao -> Database: markAsInactive(bookId)
+
+Database -> CatalogDao: confirmation message
+
+CatalogDao -> user: Successful deletion message
+@enduml

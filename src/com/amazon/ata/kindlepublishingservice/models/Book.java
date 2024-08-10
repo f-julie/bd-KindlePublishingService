@@ -10,6 +10,9 @@ public class Book {
     private String genre;
     private int version;
 
+    // Add isActive
+    private boolean isActive;
+
     public String getBookId() {
         return bookId;
     }
@@ -58,13 +61,22 @@ public class Book {
         this.version = version;
     }
 
-    public Book(String bookId, String title, String author, String text, String genre, int version) {
+    //Add getter and setter for isActive
+    public boolean getIsActive() { return isActive; }
+
+    public void setIsActive(boolean isActive) {
+        this.isActive = isActive;
+    }
+
+
+    public Book(String bookId, String title, String author, String text, String genre, int version, boolean isActive) {
         this.bookId = bookId;
         this.title = title;
         this.author = author;
         this.text = text;
         this.genre = genre;
         this.version = version;
+        this.isActive = isActive;
     }
 
     @Override
@@ -94,6 +106,7 @@ public class Book {
         this.text = builder.text;
         this.genre = builder.genre;
         this.version = builder.version;
+        this.isActive = builder.isActive;
     }
 
     public static final class Builder {
@@ -103,6 +116,9 @@ public class Book {
         private String text;
         private String genre;
         private int version;
+
+        //Add isActive
+        private boolean isActive;
 
         private Builder() {
 
@@ -137,6 +153,13 @@ public class Book {
             this.version = versionToUse;
             return this;
         }
+
+        // Add withIsActive
+        public Builder withIsActive(boolean isActiveToUse) {
+            this.isActive = isActiveToUse;
+            return this;
+        }
+
 
         public Book build() { return new Book(this); }
     }
