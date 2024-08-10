@@ -1,1 +1,140 @@
-PARTICIPANTS: use this file for creating the class diagram in mastery task 01
+@startuml
+
+class GetBookActivity {
+    -recommendationsServiceClient: RecommendationServiceClient
+    -catalogDao: CatalogDao
+
+    + execute(request: GetBookRequest): GetBookResponse
+}
+
+class GetPublishingStatusActivity {
+}
+
+class RemoveBookFromCatalogActivity {
+    + execute(removeBookFromCatalogRequest: RemoveBookFromCatalogRequest): RemoveBookFromCatalogResponse
+}
+
+class SubmitBookForPublishingActivity {
+    -publishingStatusDao: PublishingStatusDao
+
+    + execute(request: SubmitBookForPublishingRequest): SubmitBookForPublishingResponse
+}
+
+class RecommendationsServiceClient {
+    -recommendationsService: RecommendationsService (final)
+}
+
+class CatalogDao {
+    -dynamoDbMapper: DynamoDBMapper
+}
+
+class PublishingStatusDao {
+    -String ADDITIONAL_NOTES_PREFIX
+    -dynamoDbMapper: DynamoDBMapper
+}
+
+class CatalogItemVersion {
+    -bookId: String (hash key)
+    -@DynamoDBHashKey bookId: String
+    -version: int (range key)
+    -@DynamoDBRangeKey version: int
+    -inactive: boolean
+    -title: String
+    -author: String
+    -text: String
+    -genre: BookGenre
+}
+
+class PublishingStatusItem {
+    -publishingRecordId: String (hash key)
+    -@DynamoDBHashKey publishingRecordId: String
+    -status: PublishingRecordStatus (range key)
+    -@DynamoDBRangeKey status: PublishingRecordStatus
+    -statusMessage: String
+    -bookId: String
+}
+
+class BookNotFoundException {
+    -serialVersionUID: long (static, final)
+}
+
+class PublishingStatusNotFoundException {
+    -serialVersionUID: long (static, final)
+}
+
+class GetBookRequest {
+    -bookId: String
+}
+
+class GetPublishingStatusRequest {
+    -publishingRecordId: String
+}
+
+class RemoveBookFromCatalogRequest {
+    -bookId: String
+}
+
+class SubmitBookForPublishingRequest {
+    -bookId: String
+    -title: String
+    -author: String
+    -text: String
+    -genre: String
+}
+
+class GetBookResponse {
+    -book: Book
+    -recommendations: List<BookRecommendation>
+}
+
+class GetPublishingStatusResponse {
+    -publishingStatusHistory: List<PublishingStatusRecord>
+}
+
+class RemoveBookFromCatalogResponse {
+}
+
+class SubmitBookForPublishingResponse {
+    -publishingRecordId: String
+}
+
+class Book {
+    -bookId: String
+    -title: String
+    -author: String
+    -text: String
+    -genre: String
+    -version: int
+}
+
+class BookRecommendation {
+    -title: String
+    -author: String
+    -asin: String
+}
+
+class PublishingStatus {
+    +QUEUED: String (static, final)
+    +IN_PROGRESS: String (static, final)
+    +FAILED: String (static, final)
+    +SUCCESSFUL: String (static, final)
+}
+
+class PublishingStatusRecord {
+    -status: String
+    -statusMessage: String
+    -bookId: String
+}
+
+CatalogItemVersion -- CatalogDao
+PublishingStatusItem -- PublishingStatusDao
+CatalogDao -- BookNotFoundException
+
+GetBookActivity -- CatalogDao
+GetBookActivity -- RecommendationsServiceClient
+SubmitBookForPublishingActivity -- PublishingStatusDao
+
+
+
+@enduml
+
