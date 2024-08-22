@@ -59,6 +59,12 @@ public class CatalogDao {
         return results.get(0);
     }
 
+    // New method to validate if the book exists
+    public void validateBookExists(String bookId) {
+        // Call the existing method to check if the book exists
+        getBookFromCatalog(bookId); // This will throw BookNotFoundException if the book doesn't exist
+    }
+
     public void removeBookFromCatalog(String bookId) {
         CatalogItemVersion book = getBookFromCatalog(bookId);
         book.setInactive(true);
