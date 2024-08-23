@@ -62,7 +62,9 @@ public class CatalogDao {
     // New method to validate if the book exists
     public void validateBookExists(String bookId) {
         // Call the existing method to check if the book exists
-        getBookFromCatalog(bookId); // This will throw BookNotFoundException if the book doesn't exist
+        if (getLatestVersionOfBook(bookId) == null) {
+            throw new BookNotFoundException("Book not found");
+        }
     }
 
     public void removeBookFromCatalog(String bookId) {

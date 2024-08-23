@@ -1,5 +1,7 @@
 package com.amazon.ata.kindlepublishingservice.converters;
 
+import com.amazon.ata.kindlepublishingservice.dynamodb.models.PublishingStatusItem;
+import com.amazon.ata.kindlepublishingservice.models.PublishingStatusRecord;
 import com.amazon.ata.recommendationsservice.types.BookGenre;
 import com.amazon.ata.kindlepublishingservice.models.requests.SubmitBookForPublishingRequest;
 import com.amazon.ata.kindlepublishingservice.publishing.BookPublishRequest;
@@ -31,6 +33,14 @@ public class BookPublishRequestConverter {
             .withGenre(BookGenre.valueOf(request.getGenre()))
             .withAuthor(request.getAuthor())
             .build();
+    }
+
+    public static PublishingStatusRecord toPublishingStatusRecord(PublishingStatusItem item) {
+        return PublishingStatusRecord.builder()
+                .withBookId(item.getBookId())
+                .withStatus(item.getStatus().toString())
+                .withStatusMessage(item.getStatusMessage())
+                .build();
     }
 
 }

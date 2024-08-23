@@ -57,8 +57,8 @@ public class SubmitBookForPublishingActivity {
         // TODO: Submit the BookPublishRequest for processing
 
         // Step 2: Validate book existence
-        if (StringUtils.isNotBlank(bookPublishRequest.getBookId())) {
-            catalogDao.validateBookExists(bookPublishRequest.getBookId()); // This will throw if not found
+        if (request.getBookId() != null) {
+            catalogDao.validateBookExists(request.getBookId()); // This will throw if not found
         }
 
         // Step 3: Submit the BookPublishRequest for processing
