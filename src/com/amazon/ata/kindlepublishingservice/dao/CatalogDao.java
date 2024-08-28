@@ -73,6 +73,7 @@ public class CatalogDao {
         dynamoDbMapper.save(book);
     }
 
+    // Added for Sprint 23 Challenge, Mastery Task 4
     public CatalogItemVersion createOrUpdateBook(KindleFormattedBook book) throws BookNotFoundException {
         if (book.getBookId() == null) {
             String bookId = KindlePublishingUtils.generateBookId();
@@ -89,7 +90,7 @@ public class CatalogDao {
 
         validateBookExists(book.getBookId());
         CatalogItemVersion latest = getLatestVersionOfBook(book.getBookId());
-        latest.setVersion(latest.getVersion() + 1);
+        latest.setVersion(latest.getVersion() + 1); // This is the most important line. Increase version by 1 to create new version.
         removeBookFromCatalog(latest.getBookId());
         dynamoDbMapper.save(latest);
         return getLatestVersionOfBook(latest.getBookId());

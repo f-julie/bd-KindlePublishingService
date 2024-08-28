@@ -17,7 +17,7 @@ public class PublishingModule {
     @Provides
     @Singleton
     public BookPublisher provideBookPublisher(ScheduledExecutorService scheduledExecutorService, BookPublishTask bookPublishTask) {
-        return new BookPublisher(scheduledExecutorService, bookPublishTask); // Used to be noOp file. Add as parameter because all parameters can be injected
+        return new BookPublisher(scheduledExecutorService, bookPublishTask); // Used to be NoOpTask. Add as parameter because all parameters can be injected.
     }
 
     @Provides

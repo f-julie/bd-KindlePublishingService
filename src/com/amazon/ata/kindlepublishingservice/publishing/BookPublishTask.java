@@ -24,13 +24,13 @@ public class BookPublishTask implements Runnable { // Implements Runnable
     @Override
     public void run() { // Override the run method
         BookPublishRequest request = bookPublishRequestManager.getBookPublishRequestToProcess(); // Use manager to fetch latest book to publish
-        if (request == null) return; // If no books to publish, thread will stop
+        if (request == null) return; // If no books to publish, thread will end here
 
         publishingStatusDao.setPublishingStatus(request.getPublishingRecordId(), PublishingRecordStatus.IN_PROGRESS, request.getBookId());
 
         try {
             CatalogItemVersion item = catalogDao.createOrUpdateBook(KindleFormatConverter.format(request)); // Create new book or increase version +1
-            publishingStatusDao.setPublishingStatus(request.getPublishingRecordId(), PublishingRecordStatus.SUCCESSFUL, item.getBookId());
+            publishingStatusDao.setPublishingStatus(request.getPublishingRecordId(), PublishingRecordStatus.SUCCESSFUL, item.getBookId()); // Use item.getBookId() to be safe, rather than request.getBookId()
         } catch (BookNotFoundException e) {
             publishingStatusDao.setPublishingStatus(request.getPublishingRecordId(), PublishingRecordStatus.FAILED, request.getBookId());
         }

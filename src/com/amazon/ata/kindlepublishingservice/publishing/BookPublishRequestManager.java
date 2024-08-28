@@ -18,7 +18,7 @@ public class BookPublishRequestManager {
     public BookPublishRequestManager() {
         // Initialize the collection in the constructor
         // Accept any dependencies of our class into our constructor
-        this.requests = new ConcurrentLinkedQueue<>();
+        this.requests = new ConcurrentLinkedQueue<>(); // Sprint 23, Mastery Task 4, Milestone 2 - Switch from LinkedList<>() to ConcurrentLinkedQueue<>()
     }
 
     // Step 3: Implement the addBookPublishRequest method
