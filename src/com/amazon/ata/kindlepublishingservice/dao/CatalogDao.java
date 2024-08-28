@@ -91,7 +91,7 @@ public class CatalogDao {
         validateBookExists(book.getBookId());
         CatalogItemVersion latest = getLatestVersionOfBook(book.getBookId());
         latest.setVersion(latest.getVersion() + 1); // This is the most important line. Increase version by 1 to create new version.
-        removeBookFromCatalog(latest.getBookId());
+        removeBookFromCatalog(latest.getBookId()); // BloomTech version calls this softDeleteBookFromCatalog()
         dynamoDbMapper.save(latest);
         return getLatestVersionOfBook(latest.getBookId());
     }
