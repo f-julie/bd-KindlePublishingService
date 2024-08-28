@@ -1,5 +1,6 @@
 package com.amazon.ata.kindlepublishingservice.dagger;
 
+import com.amazon.ata.kindlepublishingservice.publishing.BookPublishTask;
 import com.amazon.ata.kindlepublishingservice.publishing.BookPublisher;
 
 import com.amazon.ata.kindlepublishingservice.publishing.NoOpTask;
@@ -15,8 +16,8 @@ public class PublishingModule {
 
     @Provides
     @Singleton
-    public BookPublisher provideBookPublisher(ScheduledExecutorService scheduledExecutorService) {
-        return new BookPublisher(scheduledExecutorService, new NoOpTask());
+    public BookPublisher provideBookPublisher(ScheduledExecutorService scheduledExecutorService, BookPublishTask bookPublishTask) {
+        return new BookPublisher(scheduledExecutorService, bookPublishTask); // Used to be noOp file. Add as parameter because all parameters can be injected
     }
 
     @Provides

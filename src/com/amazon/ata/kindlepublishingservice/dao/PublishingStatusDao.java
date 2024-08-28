@@ -95,4 +95,16 @@ public class PublishingStatusDao {
 
         return list;
     }
+
+/*
+    // Added for Sprint 23, Mastery Task 4, Milestone 1
+    public void setPublishingStatus(String publishingRecordId, PublishingRecordStatus status, String bookId) {
+        PublishingStatusItem statusItem = new PublishingStatusItem();
+        statusItem.setPublishingRecordId(publishingRecordId);
+        statusItem.setStatus(status); // IN_PROGRESS, SUCCESSFUL, or FAILED
+        statusItem.setBookId(bookId);
+        // Save the status item to DynamoDB
+        dynamoDbMapper.save(statusItem);
+    }
+*/
 }

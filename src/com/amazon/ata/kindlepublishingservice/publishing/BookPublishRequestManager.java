@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 @Singleton
 public class BookPublishRequestManager {
@@ -17,7 +18,7 @@ public class BookPublishRequestManager {
     public BookPublishRequestManager() {
         // Initialize the collection in the constructor
         // Accept any dependencies of our class into our constructor
-        this.requests = new LinkedList<>();
+        this.requests = new ConcurrentLinkedQueue<>();
     }
 
     // Step 3: Implement the addBookPublishRequest method
